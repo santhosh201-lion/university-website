@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JVP University — Shape Tomorrow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #0d0d0d;
+      --off:    #f2efe9;
+      --white:  #ffffff;
+      --acid:   #c8f542;
+      --mid:    #6b7280;
+      --border: #e0dbd2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ── GLOBAL TYPOGRAPHY ── */
+    body {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.65;
+      background: var(--off);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    a { text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 52px; height: 68px;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,245,66,0.15);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 11px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 38px; height: 38px; background: var(--acid);
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 700; color: var(--white);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+
+    .nav-links a {
+      font-family: 'Outfit', sans-serif;
+      color: rgba(255,255,255,0.65);
+      font-size: 14px; font-weight: 500;
+      letter-spacing: 0.2px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--acid); }
+
+    .nav-pill {
+      background: var(--acid) !important;
+      color: var(--ink) !important;
+      padding: 9px 22px; border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600 !important; font-size: 13px !important;
+      cursor: default !important;
+    }
+
+    .nav-pill:hover { background: #b8e030 !important; color: var(--ink) !important; }
+
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; padding: 4px; cursor: pointer;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      position: fixed; top: 68px; left: 0; right: 0; z-index: 998;
+      background: #111; border-bottom: 1px solid rgba(200,245,66,0.15);
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-menu.open { max-height: 300px; display: flex; }
+    .mobile-menu a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 500;
+      color: rgba(255,255,255,0.75); padding: 16px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--acid); background: rgba(200,245,66,0.05); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; background: var(--ink);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+    }
+
+    .hero::before {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      border: 1px solid rgba(200,245,66,0.07);
+      top: -200px; right: -200px; pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute;
+      width: 400px; height: 400px; border-radius: 50%;
+      border: 1px solid rgba(200,245,66,0.05);
+      bottom: -100px; left: -100px; pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 1240px; margin: 0 auto;
+      padding: 140px 52px 100px; width: 100%;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px; align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow-line { width: 32px; height: 2px; background: var(--acid); flex-shrink: 0; }
+
+    .eyebrow-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px; font-weight: 600;
+      color: var(--acid); letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(44px, 6vw, 80px);
+      font-weight: 800; color: var(--white);
+      line-height: 1.0; margin-bottom: 26px; letter-spacing: -2px;
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 2px var(--acid);
+      color: transparent;
+    }
+
+    .hero-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px; font-weight: 400; line-height: 1.75;
+      color: rgba(255,255,255,0.55); max-width: 480px; margin-bottom: 40px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-acid {
+      font-family: 'Outfit', sans-serif;
+      background: var(--acid); color: var(--ink);
+      padding: 13px 30px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      display: inline-block; transition: background 0.2s;
+    }
+    .btn-acid:hover { background: #b8e030; }
+
+    .btn-outline {
+      font-family: 'Outfit', sans-serif;
+      background: transparent; color: var(--white);
+      padding: 13px 30px; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+    .hero-stats {
+      margin-top: 52px; padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 44px; flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px; font-weight: 800; color: var(--acid); line-height: 1;
+    }
+
+    .stat-lbl {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.4); margin-top: 4px;
+    }
+
+    /* Hero panel */
+    .hero-panel { display: flex; flex-direction: column; gap: 14px; }
+
+    .panel-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px; padding: 20px 24px;
+    }
+
+    .panel-highlight {
+      background: linear-gradient(135deg, rgba(200,245,66,0.12), rgba(200,245,66,0.03));
+      border-color: rgba(200,245,66,0.2);
+    }
+
+    .panel-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--acid); margin-bottom: 14px;
+    }
+
+    .campus-row { display: flex; justify-content: space-between; align-items: center; }
+
+    .campus-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px; font-weight: 700; color: var(--white);
+    }
+
+    .campus-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.4); margin-top: 3px;
+    }
+
+    .status-pill {
+      background: var(--acid); color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px; font-weight: 700;
+      padding: 4px 10px; border-radius: 100px; letter-spacing: 1px;
+    }
+
+    .panel-rows { display: flex; flex-direction: column; gap: 10px; }
+
+    .panel-row {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.7);
+    }
+
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); flex-shrink: 0; }
+    .dot.b { background: #60a5fa; }
+    .dot.g { background: #34d399; }
+
+    /* ── TICKER ── */
+    .ticker-wrap { background: var(--acid); overflow: hidden; white-space: nowrap; padding: 13px 0; }
+
+    .ticker-inner { display: inline-flex; animation: ticker 28s linear infinite; }
+
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .ticker-item {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 700;
+      color: var(--ink); letter-spacing: 1px; text-transform: uppercase; padding: 0 28px;
+    }
+
+    .ticker-sep { color: rgba(0,0,0,0.3); padding: 0 4px; }
+
+    /* ── SHARED SECTION STYLES ── */
+    .sec-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--mid); display: block; margin-bottom: 10px;
+    }
+
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800; color: var(--ink);
+      line-height: 1.1; letter-spacing: -0.5px;
+    }
+
+    .sec-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 400;
+      color: var(--mid); line-height: 1.72; max-width: 500px; margin-top: 12px;
+    }
+
+    .sec-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 24px;
+    }
+
+    /* ── PROGRAMS ── */
+    .programs { background: var(--white); padding: 100px 52px; }
+    .programs-container { max-width: 1240px; margin: 0 auto; }
+
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+    .course-card { background: var(--off); padding: 34px 30px; transition: background 0.25s; }
+    .course-card:hover { background: var(--ink); }
+    .course-card:hover .c-name { color: var(--white); }
+    .course-card:hover .c-num { color: var(--acid); }
+    .course-card:hover .c-desc,
+    .course-card:hover .c-meta-item { color: rgba(255,255,255,0.45); }
+
+    .c-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 700;
+      color: var(--mid); letter-spacing: 2px;
+      margin-bottom: 18px; display: block; transition: color 0.25s;
+    }
+
+    .c-icon { font-size: 30px; margin-bottom: 14px; display: block; }
+
+    .c-tag {
+      display: inline-block; font-family: 'Outfit', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 4px; margin-bottom: 10px;
+    }
+
+    .c-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--ink); line-height: 1.25;
+      margin-bottom: 10px; transition: color 0.25s;
+    }
+
+    .c-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400; line-height: 1.65;
+      color: var(--mid); margin-bottom: 22px; transition: color 0.25s;
+    }
+
+    .c-meta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .c-meta-item {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: var(--mid);
+      display: flex; align-items: center; gap: 5px; transition: color 0.25s;
+    }
+
+    .tag-blue   { background:#dbeafe; color:#1d4ed8; }
+    .tag-amber  { background:#fef3c7; color:#92400e; }
+    .tag-green  { background:#dcfce7; color:#166534; }
+    .tag-violet { background:#ede9fe; color:#5b21b6; }
+    .tag-rose   { background:#ffe4e6; color:#9f1239; }
+    .tag-teal   { background:#ccfbf1; color:#0f766e; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--ink); padding: 100px 52px; }
+
+    .about-container {
+      max-width: 1240px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+
+    .about .sec-title { color: var(--white); }
+    .about .sec-label { color: var(--acid); }
+    .about .sec-desc  { color: rgba(255,255,255,0.5); }
+
+    .about-number-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 44px;
+    }
+
+    .about-num-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 26px 22px;
+    }
+
+    .about-num-box .big {
+      font-family: 'Syne', sans-serif;
+      font-size: 38px; font-weight: 800; color: var(--acid); line-height: 1;
+    }
+
+    .about-num-box .lbl {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.4); margin-top: 6px;
+    }
+
+    .highlights { display: flex; flex-direction: column; gap: 2px; }
+
+    .hl-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 20px 22px; transition: background 0.2s, border-color 0.2s;
+    }
+
+    .hl-item:hover { background: rgba(200,245,66,0.05); border-color: rgba(200,245,66,0.2); }
+
+    .hl-icon {
+      width: 42px; height: 42px;
+      background: rgba(200,245,66,0.1); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .hl-text h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+
+    .hl-text p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.6;
+    }
+
+    /* ── RESEARCH ── */
+    .research { background: var(--off); padding: 100px 52px; }
+    .research-container { max-width: 1240px; margin: 0 auto; }
+
+    .research-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+
+    .research-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .research-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(13,13,13,0.1);
+    }
+
+    .research-card-top {
+      padding: 32px 28px 24px;
+    }
+
+    .research-area-tag {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--acid); background: var(--ink);
+      display: inline-block; padding: 5px 12px;
+      border-radius: 4px; margin-bottom: 18px;
+    }
+
+    .research-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--ink); line-height: 1.25; margin-bottom: 12px;
+    }
+
+    .research-card p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400;
+      color: var(--mid); line-height: 1.65;
+    }
+
+    .research-card-footer {
+      padding: 16px 28px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .research-stat {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px; font-weight: 800; color: var(--ink);
+    }
+
+    .research-stat-lbl {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px; font-weight: 400; color: var(--mid); margin-top: 2px;
+    }
+
+    .research-icon { font-size: 28px; }
+
+    /* Research featured bar */
+    .research-featured {
+      margin-top: 60px;
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 44px 48px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+    }
+
+    .research-featured h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 3vw, 32px); font-weight: 800;
+      color: var(--white); line-height: 1.15; margin-bottom: 14px;
+    }
+
+    .research-featured p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px; font-weight: 400;
+      color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 24px;
+    }
+
+    .research-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .rtag {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 500;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      padding: 6px 14px; border-radius: 100px;
+    }
+
+    .research-metrics {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+
+    .r-metric {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 22px 20px;
+    }
+
+    .r-metric .num {
+      font-family: 'Syne', sans-serif;
+      font-size: 30px; font-weight: 800; color: var(--acid); line-height: 1;
+    }
+
+    .r-metric .lbl {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.4); margin-top: 5px;
+    }
+
+    /* ── ADMISSIONS ── */
+    .admissions { background: var(--acid); padding: 100px 52px; position: relative; overflow: hidden; }
+
+    .admissions::before {
+      content: 'JVP'; position: absolute;
+      font-family: 'Syne', sans-serif;
+      font-size: 280px; font-weight: 800;
+      color: rgba(0,0,0,0.06);
+      right: -20px; top: -40px; line-height: 1;
+      pointer-events: none; letter-spacing: -10px;
+    }
+
+    .admissions-container {
+      max-width: 1240px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    .admissions-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 48px; flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .adm-heading h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 800; color: var(--ink);
+      line-height: 1.05; letter-spacing: -1px;
+    }
+
+    .adm-heading p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 400;
+      color: rgba(0,0,0,0.55); line-height: 1.7; margin-top: 14px; max-width: 460px;
+    }
+
+    .adm-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start; padding-top: 8px; }
+
+    .btn-black {
+      font-family: 'Outfit', sans-serif;
+      background: var(--ink); color: var(--white);
+      padding: 13px 30px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      cursor: default; display: inline-block;
+    }
+
+    .btn-ghost {
+      font-family: 'Outfit', sans-serif;
+      background: transparent; color: var(--ink);
+      padding: 13px 30px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      cursor: default; display: inline-block;
+      border: 2px solid rgba(0,0,0,0.25);
+    }
+
+    .adm-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+
+    .adm-step {
+      background: rgba(0,0,0,0.07);
+      border-radius: 4px; padding: 24px 22px;
+    }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px; font-weight: 800; color: rgba(0,0,0,0.2); line-height: 1; margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400; color: rgba(0,0,0,0.55); line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #080808; padding: 64px 52px 32px; }
+    .footer-container { max-width: 1240px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 32px;
+    }
+
+    .footer-brand-desc {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.35); line-height: 1.7; max-width: 240px; margin-top: 16px;
+    }
+
+    .footer-col h5 {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-col span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.35); cursor: default;
+    }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2);
+    }
+
+    .acid-text { color: var(--acid); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .hero-inner { grid-template-columns: 1fr; padding: 120px 24px 80px; }
+      .hero-panel { display: none; }
+      .programs, .about, .research, .admissions, footer { padding-left: 24px; padding-right: 24px; }
+      .courses-grid { grid-template-columns: 1fr 1fr; }
+      .about-container { grid-template-columns: 1fr; gap: 48px; }
+      .research-grid { grid-template-columns: 1fr 1fr; }
+      .research-featured { grid-template-columns: 1fr; gap: 28px; padding: 32px; }
+      .adm-steps { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    @media (max-width: 640px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: 1fr; }
+      .about-number-row { grid-template-columns: 1fr 1fr; }
+      .adm-steps { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .hero-stats { gap: 24px; }
+      .research-metrics { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="logo-mark">J</div>
+    <span class="logo-name">JVP University</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#admissions">Admissions</a></li>
+    <li><a href="#admissions" class="nav-pill">Apply Now</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('mobileNav').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-menu" id="mobileNav">
+  <a href="#programs" onclick="document.getElementById('mobileNav').classList.remove('open')">Programs</a>
+  <a href="#about" onclick="document.getElementById('mobileNav').classList.remove('open')">About</a>
+  <a href="#research" onclick="document.getElementById('mobileNav').classList.remove('open')">Research</a>
+  <a href="#admissions" onclick="document.getElementById('mobileNav').classList.remove('open')">Admissions</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Ranked #1 in Graduate Research 2025</span>
+      </div>
+      <h1 class="hero-title">
+        Shape the<br/>
+        <span class="outline">Future</span><br/>
+        Through Knowledge
+      </h1>
+      <p class="hero-desc">
+        JVP University delivers world-class education that challenges brilliant minds and equips tomorrow's leaders with the tools to transform society.
+      </p>
+      <div class="hero-btns">
+        <a href="#programs" class="btn-acid">Explore Programs</a>
+        <a href="#about" class="btn-outline">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">120+</div><div class="stat-lbl">Degree Programs</div></div>
+        <div><div class="stat-num">18K</div><div class="stat-lbl">Enrolled Students</div></div>
+        <div><div class="stat-num">94%</div><div class="stat-lbl">Graduate Employment</div></div>
+        <div><div class="stat-num">62</div><div class="stat-lbl">Partner Institutions</div></div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-card panel-highlight">
+        <div class="campus-row">
+          <div>
+            <div class="campus-name">Main Campus</div>
+            <div class="campus-sub">Cambridge, Massachusetts</div>
+          </div>
+          <div class="status-pill">OPEN</div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <div class="panel-label">Fall 2025 Enrollment</div>
+        <div class="panel-rows">
+          <div class="panel-row"><div class="dot"></div>Applications Open — Until Aug 15</div>
+          <div class="panel-row"><div class="dot g"></div>Scholarship Deadline — Jul 1</div>
+          <div class="panel-row"><div class="dot b"></div>Orientation — Sep 3–5</div>
+          <div class="panel-row"><div class="dot"></div>Classes Begin — Sep 8</div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <div class="panel-label">Featured Research Areas</div>
+        <div class="panel-rows">
+          <div class="panel-row"><div class="dot b"></div>Artificial Intelligence &amp; ML</div>
+          <div class="panel-row"><div class="dot g"></div>Climate Science &amp; Sustainability</div>
+          <div class="panel-row"><div class="dot"></div>Biomedical Engineering</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Computer Science</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Biomedical Sciences</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Law &amp; Policy</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Architecture</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Business Administration</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">International Relations</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Data Science</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Environmental Studies</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Computer Science</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Biomedical Sciences</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Law &amp; Policy</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Architecture</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Business Administration</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">International Relations</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Data Science</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Environmental Studies</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- ══ PROGRAMS ══ -->
+<section class="programs" id="programs">
+  <div class="programs-container">
+    <div class="sec-header">
+      <div>
+        <span class="sec-label">Academic Programs</span>
+        <h2 class="sec-title">Discover Your<br/>Field of Study</h2>
+        <p class="sec-desc">From fundamental sciences to cutting-edge disciplines, our programs are built for the careers of tomorrow.</p>
+      </div>
+    </div>
+    <div class="courses-grid">
+
+      <div class="course-card">
+        <span class="c-num">01</span>
+        <span class="c-icon">💻</span>
+        <span class="c-tag tag-blue">Technology</span>
+        <h3 class="c-name">Computer Science &amp; Engineering</h3>
+        <p class="c-desc">Algorithms, software systems, AI, and hardware design. Graduates lead at top global tech companies.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 4 Years</span>
+          <span class="c-meta-item">📘 42 Courses</span>
+          <span class="c-meta-item">👤 620 Students</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <span class="c-num">02</span>
+        <span class="c-icon">⚖️</span>
+        <span class="c-tag tag-amber">Law</span>
+        <h3 class="c-name">Law &amp; Political Science</h3>
+        <p class="c-desc">Constitutional theory, international law, and courtroom training with seasoned practitioners.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 3 Years</span>
+          <span class="c-meta-item">📘 38 Courses</span>
+          <span class="c-meta-item">👤 410 Students</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <span class="c-num">03</span>
+        <span class="c-icon">🧬</span>
+        <span class="c-tag tag-green">Science</span>
+        <h3 class="c-name">Biomedical Sciences</h3>
+        <p class="c-desc">Biology, chemistry, and clinical medicine to advance diagnostics, therapeutics, and human health.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 5 Years</span>
+          <span class="c-meta-item">📘 55 Courses</span>
+          <span class="c-meta-item">👤 380 Students</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <span class="c-num">04</span>
+        <span class="c-icon">📊</span>
+        <span class="c-tag tag-violet">Business</span>
+        <h3 class="c-name">Business Administration &amp; MBA</h3>
+        <p class="c-desc">Strategic leadership, financial acumen, and entrepreneurship for executive roles in global business.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 2–4 Years</span>
+          <span class="c-meta-item">📘 36 Courses</span>
+          <span class="c-meta-item">👤 740 Students</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <span class="c-num">05</span>
+        <span class="c-icon">🏛️</span>
+        <span class="c-tag tag-rose">Arts</span>
+        <h3 class="c-name">Architecture &amp; Design</h3>
+        <p class="c-desc">Creativity meets precision — shaping built environments that are functional and profoundly human.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 5 Years</span>
+          <span class="c-meta-item">📘 46 Courses</span>
+          <span class="c-meta-item">👤 290 Students</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <span class="c-num">06</span>
+        <span class="c-icon">🌍</span>
+        <span class="c-tag tag-teal">Social</span>
+        <h3 class="c-name">International Relations</h3>
+        <p class="c-desc">Diplomacy, global governance, and geopolitics — navigating an increasingly complex world.</p>
+        <div class="c-meta">
+          <span class="c-meta-item">⏱ 4 Years</span>
+          <span class="c-meta-item">📘 40 Courses</span>
+          <span class="c-meta-item">👤 360 Students</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="about-container">
+    <div>
+      <span class="sec-label" style="color:var(--acid);">Our Institution</span>
+      <h2 class="sec-title" style="color:var(--white);">A Legacy of<br/>Academic Excellence</h2>
+      <p class="sec-desc" style="color:rgba(255,255,255,0.5);">JVP University has cultivated generations of scholars, scientists, artists, and leaders who go on to make meaningful contributions to the world.</p>
+      <div class="about-number-row">
+        <div class="about-num-box"><div class="big">120+</div><div class="lbl">Degree Programs</div></div>
+        <div class="about-num-box"><div class="big">$12M</div><div class="lbl">In Scholarships Annually</div></div>
+        <div class="about-num-box"><div class="big">40</div><div class="lbl">Global Partner Countries</div></div>
+        <div class="about-num-box"><div class="big">94%</div><div class="lbl">Graduate Employment Rate</div></div>
+      </div>
+    </div>
+    <div class="highlights">
+      <div class="hl-item">
+        <div class="hl-icon">🔬</div>
+        <div class="hl-text">
+          <h4>Research-Driven Learning</h4>
+          <p>Students participate in active research from their first year, pushing the boundaries of knowledge alongside faculty.</p>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🌐</div>
+        <div class="hl-text">
+          <h4>Global Exchange Programs</h4>
+          <p>Partner institutions across 40 countries offer students the opportunity to study internationally and broaden their perspective.</p>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🎓</div>
+        <div class="hl-text">
+          <h4>Merit-Based Scholarships</h4>
+          <p>Over $12 million awarded annually. Financial barriers should never stand between talent and opportunity.</p>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🤝</div>
+        <div class="hl-text">
+          <h4>Career Placement Network</h4>
+          <p>Our alumni network spans 80+ countries and 1,200+ companies, giving graduates an unmatched professional edge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEARCH ══ -->
+<section class="research" id="research">
+  <div class="research-container">
+    <div class="sec-header">
+      <div>
+        <span class="sec-label">Innovation &amp; Discovery</span>
+        <h2 class="sec-title">Pushing the Boundaries<br/>of Knowledge</h2>
+        <p class="sec-desc">Our research centers tackle the world's most pressing problems — from climate change to the next generation of medicine and technology.</p>
+      </div>
+    </div>
+
+    <div class="research-grid">
+
+      <div class="research-card">
+        <div class="research-card-top">
+          <div class="research-area-tag">AI &amp; Computing</div>
+          <h3>Artificial Intelligence Research Lab</h3>
+          <p>Advancing machine learning, natural language processing, and computer vision. Our lab partners with leading tech firms to drive real-world impact.</p>
+        </div>
+        <div class="research-card-footer">
+          <div>
+            <div class="research-stat">38</div>
+            <div class="research-stat-lbl">Active Projects</div>
+          </div>
+          <div class="research-icon">🤖</div>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-card-top">
+          <div class="research-area-tag">Life Sciences</div>
+          <h3>Centre for Biomedical Innovation</h3>
+          <p>From gene therapy to cancer diagnostics, our biomedical researchers are developing treatments that will define the next era of medicine.</p>
+        </div>
+        <div class="research-card-footer">
+          <div>
+            <div class="research-stat">52</div>
+            <div class="research-stat-lbl">Active Projects</div>
+          </div>
+          <div class="research-icon">🧪</div>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-card-top">
+          <div class="research-area-tag">Environment</div>
+          <h3>Climate &amp; Sustainability Institute</h3>
+          <p>Interdisciplinary research on climate adaptation, renewable energy systems, and policy frameworks to accelerate a sustainable future for all.</p>
+        </div>
+        <div class="research-card-footer">
+          <div>
+            <div class="research-stat">29</div>
+            <div class="research-stat-lbl">Active Projects</div>
+          </div>
+          <div class="research-icon">🌱</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="research-featured">
+      <div>
+        <h3>$240M in Active<br/>Research Funding</h3>
+        <p>JVP University is among the top-funded research institutions globally, with grants from government agencies, private foundations, and industry partners.</p>
+        <div class="research-tags">
+          <span class="rtag">NSF Funded</span>
+          <span class="rtag">NIH Partner</span>
+          <span class="rtag">Industry Grants</span>
+          <span class="rtag">EU Horizon</span>
+          <span class="rtag">UN Advisory</span>
+        </div>
+      </div>
+      <div class="research-metrics">
+        <div class="r-metric"><div class="num">850+</div><div class="lbl">Research Faculty</div></div>
+        <div class="r-metric"><div class="num">4,200</div><div class="lbl">Published Papers (2024)</div></div>
+        <div class="r-metric"><div class="num">180+</div><div class="lbl">Active Patents</div></div>
+        <div class="r-metric"><div class="num">$240M</div><div class="lbl">Research Funding</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ADMISSIONS ══ -->
+<section class="admissions" id="admissions">
+  <div class="admissions-container">
+    <div class="admissions-top">
+      <div class="adm-heading">
+        <h2>Ready to Begin<br/>Your Journey?</h2>
+        <p>Applications for Fall 2025 are now open. Take the first step toward a degree that will define your career and open doors across the globe.</p>
+      </div>
+      <div class="adm-btns">
+        <span class="btn-black">Apply for Admission</span>
+        <span class="btn-ghost">Download Prospectus</span>
+      </div>
+    </div>
+    <div class="adm-steps">
+      <div class="adm-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Submit Application</div>
+        <p class="step-desc">Complete the online form with your academic history, personal statement, and references.</p>
+      </div>
+      <div class="adm-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Document Review</div>
+        <p class="step-desc">Our admissions team reviews your transcripts, test scores, and supporting materials.</p>
+      </div>
+      <div class="adm-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Interview Round</div>
+        <p class="step-desc">Shortlisted candidates are invited to an in-person or virtual interview with faculty.</p>
+      </div>
+      <div class="adm-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Offer &amp; Enroll</div>
+        <p class="step-desc">Successful applicants receive an offer letter and confirm enrollment to secure their place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <div>
+        <div style="display:flex;align-items:center;gap:11px;">
+          <div class="logo-mark">J</div>
+          <span class="logo-name">JVP University</span>
+        </div>
+        <p class="footer-brand-desc">Advancing knowledge and empowering minds. Located in Cambridge, Massachusetts.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Academics</h5>
+        <ul>
+          <li><span>All Programs</span></li>
+          <li><span>Graduate Studies</span></li>
+          <li><span>Online Learning</span></li>
+          <li><span>Research Centers</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Campus</h5>
+        <ul>
+          <li><span>Library</span></li>
+          <li><span>Student Life</span></li>
+          <li><span>Athletics</span></li>
+          <li><span>Housing</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><span>Contact Us</span></li>
+          <li><span>Financial Aid</span></li>
+          <li><span>Counseling</span></li>
+          <li><span>IT Help Desk</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 <span class="acid-text">JVP University</span>. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Use · Accessibility</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
